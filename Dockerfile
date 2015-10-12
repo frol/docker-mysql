@@ -13,6 +13,12 @@ RUN apk --update add mariadb mysql \
  && rm -rf /var/cache/apk/*
 
 VOLUME /var/lib/mysql
+VOLUME /var/log/mysql
+
+# For read-only flag
+VOLUME /etc/mysql/
+VOLUME /tmp
+
 EXPOSE 3306
 
 ENTRYPOINT [ "/entrypoint.sh" ]
