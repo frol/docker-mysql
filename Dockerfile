@@ -15,7 +15,7 @@ RUN apk --update add mariadb mysql \
 VOLUME /var/lib/mysql
 VOLUME /var/log/mysql
 
-# For read-only flag
+# For read-only purpose
 VOLUME /etc/mysql/
 VOLUME /tmp
 
