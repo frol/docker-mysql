@@ -20,6 +20,7 @@ VOLUME /etc/mysql/
 VOLUME /tmp
 
 EXPOSE 3306
+USER mysql
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "mysqld", "--user=mysql" ]
