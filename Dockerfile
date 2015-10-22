@@ -12,12 +12,7 @@ RUN apk --update add mariadb mysql \
  && chown -R mysql:mysql /etc/mysql/ \
  && rm -rf /var/cache/apk/*
 
-VOLUME /var/lib/mysql
-VOLUME /var/log/mysql
-
-# For read-only purpose
-VOLUME /etc/mysql/
-VOLUME /tmp
+VOLUME /var/lib/mysql /var/log/mysql /etc/mysql/ /tmp
 
 EXPOSE 3306
 USER mysql
