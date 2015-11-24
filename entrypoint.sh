@@ -8,6 +8,7 @@ fi
 if [ "$1" = 'mysqld' ]; then
   # read DATADIR from the MySQL config
   DATADIR="$("$@" --verbose --help 2>/dev/null | awk '$1 == "datadir" { print $2; exit }')"
+  sed -i "s:/run/mysqld/mysqld\.sock:$DATADIR/mysqld\.sock:" /etc/mysql/my.cnf
   
   if [ ! -d "$DATADIR/mysql" ]; then
     if [ -z "$MYSQL_ROOT_PASSWORD" -a -z "$MYSQL_ALLOW_EMPTY_PASSWORD" ]; then
@@ -19,7 +20,6 @@ if [ "$1" = 'mysqld' ]; then
     echo 'Initializing database'
     mysql_install_db --ldata="$DATADIR" --user=mysql
     echo 'Database initialized'
-    sed -i "s/\/run\/mysqld\/mysqld\.sock/$(echo $DATADIR | sed -e 's/\\/\\\\/g' -e 's/\//\\\//g' -e 's/&/\\\&/g')mysqld\.sock/" /etc/mysql/my.cnf
     
     # These statements _must_ be on individual lines, and _must_ end with
     # semicolons (no line breaks or comments are permitted).
